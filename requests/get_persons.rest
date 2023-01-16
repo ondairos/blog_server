@@ -1,0 +1,15 @@
+GET http://localhost:3001/api/blogs
+
+###
+DELETE http://localhost:3001/api/blogs/2
+###
+POST http://localhost:3001/api/blogs
+content-type: application/json
+
+{
+    "title": "The fire spirit",
+    "author": "231",
+    "url": "second_blog",
+    "likes": 2
+}
+###
