@@ -12,8 +12,23 @@ describe('total likes', () => {
         }
     ]
 
+    // blogpost for testing/checking
+    const checkBlog = [
+        {
+            title: 'Go To Statement Considered Harmful',
+            author: 'Edsger W. Dijkstra',
+            likes: 5,
+        }
+    ]
+
     test('when list has only one blog, equals the likes of that', () => {
         const result = listLikesChecker.checkTotalLikes(listWithOneBlog)
         expect(result).toBe(5)
+    })
+
+    test('find the blog post with highest like count', () => {
+        // make the result an array to check with checkBlog
+        const result = [listLikesChecker.findMaxLikesPost(listWithOneBlog)]
+        expect(result).toEqual(checkBlog)
     })
 })
