@@ -7,9 +7,9 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "The water spirit",
+    "title": "The ssss water spirit",
     "author": "231Z",
-    "url": "third_blog",
-    "likes": 22
+    "url": "sdf_blog",
+    "likes": 21
 }
 ###
