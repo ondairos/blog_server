@@ -21,7 +21,7 @@ const initialBlogPosts = [
     },
 ]
 
-
+// creating a database object ID that does not belong to any note object in the database.
 const nonExistingId = async () => {
     const blogPost = new Blog({ title: 'placeholder', author: 'testAuthor', url: 'testUrl', likes: 11 })
     await blogPost.save()

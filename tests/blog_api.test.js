@@ -1,6 +1,7 @@
 /* eslint-disable no-trailing-spaces */
 const mongoose = require('mongoose')
 const supertest = require('supertest')
+const helper = require('./test_helper')
 const app = require('../app')
 const blog = require('../models/blog')
 // const config = require('../utils/config')
@@ -13,35 +14,14 @@ const api = supertest(app)
 //     await mongoose.connect(config.mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 // })
 
-const initialBlogPosts = [
-    {
-        'title': 'TEST: The One spirit',
-        'author': '231Z',
-        'url': 'first_blog_post',
-        'likes': 22
-    },
-    {
-        'title': 'The two spirit',
-        'author': '231Z',
-        'url': 'second_blog_post',
-        'likes': 11
-    },
-    {
-        'title': 'The three spirit',
-        'author': '231Z',
-        'url': 'third_blog_post',
-        'likes': 3
-    },
-]
-
 // clear database and add three test blog posts
 beforeEach(async () => {
     await blog.deleteMany({})
-    let blogObject = new blog(initialBlogPosts[0])
+    let blogObject = new blog(helper.initialBlogPosts[0])
     await blogObject.save()
-    blogObject = new blog(initialBlogPosts[1])
+    blogObject = new blog(helper.initialBlogPosts[1])
     await blogObject.save()
-    blogObject = new blog(initialBlogPosts[2])
+    blogObject = new blog(helper.initialBlogPosts[2])
     await blogObject.save()
 })
 
@@ -58,7 +38,7 @@ test('there are two blog posts', async () => {
     console.log('Making GET request to /api/blogs')
     const response = await api.get('/api/blogs')
 
-    expect(response.body).toHaveLength(initialBlogPosts.length)
+    expect(response.body).toHaveLength(helper.initialBlogPosts.length)
 })
 
 test('a specific blog post is within the returned blog posts', async () => {
@@ -92,7 +72,7 @@ test('a valid blog post can be added', async () => {
     const response = await api.get('/api/blogs')
     const allBlogTitles = response.body.map(element => element.title)
 
-    expect(response.body).toHaveLength(initialBlogPosts.length + 1)
+    expect(response.body).toHaveLength(helper.initialBlogPosts.length + 1)
     expect(allBlogTitles).toContain('TEST: New Blog Title')
 })
 
@@ -108,7 +88,7 @@ test('blogPost without content is not added', async () => {
 
     const response = await api.get('/api/blogs')
 
-    expect(response.body).toHaveLength(initialBlogPosts.length)
+    expect(response.body).toHaveLength(helper.initialBlogPosts.length)
 })
 
 
