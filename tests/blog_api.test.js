@@ -96,6 +96,22 @@ test('a valid blog post can be added', async () => {
     expect(allBlogTitles).toContain('TEST: New Blog Title')
 })
 
+// test that verifies that a note without content will not be saved into the database.
+test('blogPost without content is not added', async () => {
+    const newBlogPost = {
+        url: 'test_url'
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlogPost)
+        .expect(400)
+
+    const response = await api.get('/api/blogs')
+
+    expect(response.body).toHaveLength(initialBlogPosts.length)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
