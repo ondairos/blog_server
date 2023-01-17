@@ -102,8 +102,7 @@ test('blogPost without content is not added', async () => {
         url: 'test_url'
     }
 
-    await api
-        .post('/api/blogs')
+    await api.post('/api/blogs')
         .send(newBlogPost)
         .expect(400)
 
@@ -111,6 +110,7 @@ test('blogPost without content is not added', async () => {
 
     expect(response.body).toHaveLength(initialBlogPosts.length)
 })
+
 
 afterAll(() => {
     mongoose.connection.close()
