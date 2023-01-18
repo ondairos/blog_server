@@ -7,9 +7,19 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "The ssss water spirit",
-    "author": "231Z",
-    "url": "sdf_blog",
-    "likes": 21
+    "title": "The Delta spirit",
+    "author": "231Za",
+    "url": "delta_blog.com",
+    "likes": 18,
+    "userId": "63c81328012deaa677d375dc"
+}
+###
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "username": "test2",
+    "name": "Testing Test2",
+    "password": "13141"
 }
 ###
