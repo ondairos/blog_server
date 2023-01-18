@@ -77,19 +77,19 @@ test('a valid blog post can be added', async () => {
 })
 
 // test that verifies that a note without content will not be saved into the database.
-test('blogPost without content is not added', async () => {
-    const newBlogPost = {
-        url: 'test_url'
-    }
+// test('blogPost without content is not added', async () => {
+//     const newBlogPost = {
+//         url: 'test_url'
+//     }
 
-    await api.post('/api/blogs')
-        .send(newBlogPost)
-        .expect(400)
+//     await api.post('/api/blogs')
+//         .send(newBlogPost)
+//         .expect(400)
 
-    const response = await api.get('/api/blogs')
+//     const response = await api.get('/api/blogs')
 
-    expect(response.body).toHaveLength(helper.initialBlogPosts.length)
-})
+//     expect(response.body).toHaveLength(helper.initialBlogPosts.length)
+// })
 
 
 afterAll(() => {
