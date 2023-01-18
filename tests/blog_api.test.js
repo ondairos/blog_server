@@ -17,12 +17,14 @@ const api = supertest(app)
 // clear database and add three test blog posts
 beforeEach(async () => {
     await blog.deleteMany({})
-    let blogObject = new blog(helper.initialBlogPosts[0])
-    await blogObject.save()
-    blogObject = new blog(helper.initialBlogPosts[1])
-    await blogObject.save()
-    blogObject = new blog(helper.initialBlogPosts[2])
-    await blogObject.save()
+    console.log('cleared database')
+
+    helper.initialBlogPosts.forEach(async (blogPost) => {
+        let blogObject = new blog(blogPost)
+        await blogObject.save()
+        console.log('saved to database')
+    })
+    console.log('done')
 })
 
 test('blog posts are returned as json', async () => {
@@ -91,7 +93,7 @@ test('a valid blog post can be added', async () => {
 //     expect(response.body).toHaveLength(helper.initialBlogPosts.length)
 // })
 
-
+console.log('test')
 // TESTS FOR DELETING AND GETTING INDIVIDUAL ROUTES (~!convert to Blog!~)
 // test('a specific note can be viewed', async () => {
 //     const notesAtStart = await helper.notesInDb()

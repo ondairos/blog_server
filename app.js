@@ -1,5 +1,7 @@
 const config = require('./utils/config')
 const express = require('express')
+// The 'magic' of the library allows us to eliminate the try-catch blocks completely
+require('express-async-errors')
 const app = express()
 const cors = require('cors')
 const blogsRouter = require('./controllers/blogs')
