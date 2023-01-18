@@ -17,39 +17,41 @@ const api = supertest(app)
 // clear database and add three test blog posts
 beforeEach(async () => {
     await blog.deleteMany({})
-    console.log('cleared database')
+    await blog.insertMany(helper.initialBlogPosts)
+    // // the for of block guarantees specific execution of order
+    // for (let blogPost of helper.initialBlogPosts) {
+    //     let blogPostObject = new blog(blogPost)
+    //     await blogPostObject.save()
+    // }
+})
 
-    helper.initialBlogPosts.forEach(async (blogPost) => {
-        let blogObject = new blog(blogPost)
-        await blogObject.save()
-        console.log('saved to database')
+describe('when there is initially some notes saved', () => {
+    test('blog posts are returned as json', async () => {
+        await api
+            .get('/api/blogs')
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+    }, 100000)
+
+
+
+    test('there are two blog posts', async () => {
+        console.log('Making GET request to /api/blogs')
+        const response = await api.get('/api/blogs')
+
+        expect(response.body).toHaveLength(helper.initialBlogPosts.length)
     })
-    console.log('done')
+
+    test('a specific blog post is within the returned blog posts', async () => {
+        console.log('Making GET request to /api/blogs')
+        const response = await api.get('/api/blogs')
+
+        const blogTitles = response.body.map(element => element.title)
+        expect(blogTitles).toContain('The two spirit')
+    })
 })
 
-test('blog posts are returned as json', async () => {
-    await api
-        .get('/api/blogs')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
-}, 100000)
 
-
-
-test('there are two blog posts', async () => {
-    console.log('Making GET request to /api/blogs')
-    const response = await api.get('/api/blogs')
-
-    expect(response.body).toHaveLength(helper.initialBlogPosts.length)
-})
-
-test('a specific blog post is within the returned blog posts', async () => {
-    console.log('Making GET request to /api/blogs')
-    const response = await api.get('/api/blogs')
-
-    const blogTitles = response.body.map(element => element.title)
-    expect(blogTitles).toContain('The two spirit')
-})
 
 // test for checking if a note valid blog post can be added
 test('a valid blog post can be added', async () => {
