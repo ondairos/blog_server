@@ -39,6 +39,7 @@ blogsRouter.post('/', tokenExtractor, async (request, response) => {
         return response.status(401).json({ error: 'token1 is missing or invalid' })
     }
     const decodedToken = jwt.verify(token, process.env.SECRET)
+    console.log('decoded token:', decodedToken)
     if (!decodedToken.id) {
         return response.status(401).json({ error: 'token2 missing or invalid' })
     }
@@ -77,16 +78,16 @@ blogsRouter.get('/:id', async (request, response) => {
 
 // delete individual blog post id
 // express-async-errors eliminates the use of try-catch in ASYNC CODE
-blogsRouter.delete('/:id', async (request, response) => {
-    await Blog.findByIdAndRemove(request.params.id)
-    response.status(204).end()
-})
+// blogsRouter.delete('/:id', async (request, response) => {
+//     await Blog.findByIdAndRemove(request.params.id)
+//     response.status(204).end()
+// })
 
 // delete blog post only if user id is the creator of the blog post
-blogsRouter.delete(':/id', async (request, response) => {
-
+blogsRouter.delete('/:id', tokenExtractor, async (request, response) => {
+    const token = request.token
     // get the token
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    const decodedToken = jwt.verify(token, process.env.SECRET)
     if (!decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
@@ -106,5 +107,6 @@ blogsRouter.delete(':/id', async (request, response) => {
         response.status(401).json({ error: 'unothorized user' })
     }
 })
+
 
 module.exports = blogsRouter

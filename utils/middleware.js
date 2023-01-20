@@ -31,15 +31,16 @@ const errorHandler = (error, request, response, next) => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const tokenExtractor = (error, request, response, next) => {
+const tokenExtractor = (request, response, next) => {
+    console.log('headers:', request.headers)
     const authorization = request.get('authorization')
-    let token = null
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        token = authorization.substring(7)
+        request.token = authorization.substring(7)
+        console.log('token:', request.token)
     }
     next()
-    return token
 }
+
 
 
 
