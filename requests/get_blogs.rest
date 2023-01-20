@@ -1,25 +1,25 @@
 GET http://localhost:3001/api/blogs
 
 ###
-DELETE http://localhost:3001/api/blogs/63c6c4faa91770218ca55d8d
+DELETE http://localhost:3001/api/blogs/63c52fe464226d5e0259a687
 ###
 POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "The Delta spirit",
-    "author": "231Za",
-    "url": "delta_blog.com",
-    "likes": 18,
-    "userId": "63c81328012deaa677d375dc"
+    "title": "A Blog post today",
+    "author": "Monka S",
+    "url": "test.com",
+    "likes": 128,
+    "userId": "63ca8383a8d8ebff7ced2a3f"
 }
 ###
 POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "username": "test2",
-    "name": "Testing Test2",
+    "username": "test3",
+    "name": "Testing Test3",
     "password": "13141"
 }
 ###
@@ -27,7 +27,7 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-    "username": "test2",
+    "username": "test3",
     "password": "13141"
 }
 ###

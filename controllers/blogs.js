@@ -2,6 +2,7 @@ const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const { tokenExtractor } = require('../utils/middleware')
 // const mongoose = require('mongoose')
 
 
@@ -29,13 +30,17 @@ blogsRouter.get('/', async (request, response) => {
 // }
 
 // express-async-errors eliminates the use of try-catch in ASYNC CODE
-blogsRouter.post('/', async (request, response) => {
+blogsRouter.post('/', tokenExtractor, async (request, response) => {
     const body = request.body
 
-    // const token = getTokenFrom(request)
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    // assign token to variable from request
+    const token = request.token
+    if (!token) {
+        return response.status(401).json({ error: 'token1 is missing or invalid' })
+    }
+    const decodedToken = jwt.verify(token, process.env.SECRET)
     if (!decodedToken.id) {
-        return response.status(401).json({ error: 'token missing or invalid' })
+        return response.status(401).json({ error: 'token2 missing or invalid' })
     }
     // user with token implementation for authentication
     const user = await User.findById(decodedToken.id)
@@ -75,6 +80,31 @@ blogsRouter.get('/:id', async (request, response) => {
 blogsRouter.delete('/:id', async (request, response) => {
     await Blog.findByIdAndRemove(request.params.id)
     response.status(204).end()
+})
+
+// delete blog post only if user id is the creator of the blog post
+blogsRouter.delete(':/id', async (request, response) => {
+
+    // get the token
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
+
+    // get the user with the token id
+    const tokenUserId = decodedToken.id
+
+    const blogPost = await Blog.findById(request.params.id)
+    if (!blogPost) {
+        return response.status(404).json({ error: 'blog post not found!' })
+    }
+
+    if (blogPost.user.toString() === tokenUserId.toString()) {
+        await Blog.findByIdAndDelete(request.params.id)
+        response.status(204).end()
+    } else {
+        response.status(401).json({ error: 'unothorized user' })
+    }
 })
 
 module.exports = blogsRouter
