@@ -1,4 +1,6 @@
+// const User = require('../models/user')
 const logger = require('./logger')
+// const jwt = require('jsonwebtoken')
 
 const requestLogger = (request, response, next) => {
     logger.info('Method:', request.method)
@@ -31,6 +33,7 @@ const errorHandler = (error, request, response, next) => {
 }
 
 // eslint-disable-next-line no-unused-vars
+// This code doesn't need to use the "async" keyword because it doesn't contain any asynchronous code that would need to be awaited.
 const tokenExtractor = (request, response, next) => {
     console.log('headers:', request.headers)
     const authorization = request.get('authorization')
@@ -42,11 +45,28 @@ const tokenExtractor = (request, response, next) => {
 }
 
 
+//user extractor to use for the identity of the user who is doing the operations in blogs.js
+// we need async because User.findById is a promise
+// const userExtractor = async (request, response, next) => {
+//     // request.headers.Authorization ???
+//     const token = request.token
+//     if (!token) {
+//         response.status(401).json({ message: 'token not found!' })
+//     }
+//     const decodedToken = jwt.verify(token, process.env.SECRET)
+//     const foundUser = await User.findById(decodedToken.id)
+//     if (!foundUser) {
+//         response.status(401).json({ message: 'Invalid Token!' })
+//     }
+//     request.user = foundUser
+//     next()
+// }
 
 
 module.exports = {
     requestLogger,
     unknownEndpoint,
     errorHandler,
-    tokenExtractor
+    tokenExtractor,
+    // userExtractor
 }
