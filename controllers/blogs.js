@@ -76,13 +76,6 @@ blogsRouter.get('/:id', async (request, response) => {
 })
 
 
-// delete individual blog post id
-// express-async-errors eliminates the use of try-catch in ASYNC CODE
-// blogsRouter.delete('/:id', async (request, response) => {
-//     await Blog.findByIdAndRemove(request.params.id)
-//     response.status(204).end()
-// })
-
 // delete blog post only if user id is the creator of the blog post
 blogsRouter.delete('/:id', tokenExtractor, async (request, response) => {
     const token = request.token

@@ -44,7 +44,7 @@ const tokenExtractor = (request, response, next) => {
     next()
 }
 
-
+// THIS CODE NEEDS CHANGES DOESN'T WORK SENTS DOUBLE HEADERS
 //user extractor to use for the identity of the user who is doing the operations in blogs.js
 // we need async because User.findById is a promise
 // const userExtractor = async (request, response, next) => {
