@@ -75,6 +75,24 @@ blogsRouter.get('/:id', async (request, response) => {
 
 })
 
+//update blog post
+blogsRouter.put('/:id', (request, response, next) => {
+    const body = request.body
+
+    const blogPost = {
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes,
+        user: body.user
+    }
+
+    Blog.findByIdAndUpdate(request.params.id, blogPost, { new: true })
+        .then(updatedBlogPost => {
+            response.json(updatedBlogPost)
+        }).catch(error => next(error))
+})
+
 
 // delete blog post only if user id is the creator of the blog post
 blogsRouter.delete('/:id', tokenExtractor, async (request, response) => {
