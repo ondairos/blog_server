@@ -9,7 +9,8 @@
     "deploy": "git push master",
     "logs:prod": "",
     "lint": "eslint .",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "John Kanti",
   "license": "MIT",
