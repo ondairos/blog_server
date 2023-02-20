@@ -120,4 +120,17 @@ blogsRouter.delete('/:id', tokenExtractor, async (request, response) => {
 })
 
 
+// add comment
+blogsRouter.post('/:id/comments', async (request, response) => {
+    const foundBlog = request.body
+
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, foundBlog, {
+        new: true,
+        runValidators: true,
+        context: 'query'
+    }).populate('user', { username: 1, name: 1 })
+
+    response.json(updatedBlog)
+})
+
 module.exports = blogsRouter
