@@ -51,7 +51,8 @@ blogsRouter.post('/', tokenExtractor, async (request, response) => {
         author: body.author,
         url: body.url,
         likes: body.likes,
-        user: user._id
+        user: user._id,
+        comments: body.comments
     })
 
     const savedBlogPost = await blogPost.save()

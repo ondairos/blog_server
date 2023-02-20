@@ -6,16 +6,17 @@ DELETE http://localhost:3001/api/blogs/63c52fe464226d5e0259a687
 DELETE http://localhost:3001/api/blogs/63c816a8d6406bf529932c36
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QyIiwiaWQiOiI2M2M4MTMyODAxMmRlYWE2NzdkMzc1ZGMiLCJpYXQiOjE2NzQyMjAyMjMsImV4cCI6MTY3NDIyMzgyM30.r9UYv64SIF1m7SmlKPvrtUQBQxP8LhtuR-GebHCGxB4
 ###
-POST http://localhost:3001/api/blogs
+POST http://localhost:3003/api/blogs
 content-type: application/json 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QzIiwiaWQiOiI2M2NhODM4M2E4ZDhlYmZmN2NlZDJhM2YiLCJpYXQiOjE2NzQyMjAwNTQsImV4cCI6MTY3NDIyMzY1NH0.Bj19VmPpHVCgBTCvWZz4cPfjCkYdSOYK9sFdlN9QHQ0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QzIiwiaWQiOiI2M2NhODM4M2E4ZDhlYmZmN2NlZDJhM2YiLCJpYXQiOjE2NzY5MDI2OTEsImV4cCI6MTY3NjkwNjI5MX0.B7CHUg7IHIHoaxC1QLNloUhBZRM16NNgOcrAunv3MeU
 
 {
-    "title": "A Blog post today",
+    "title": "AsADAF",
     "author": "Monka S",
     "url": "test.com",
-    "likes": 128,
-    "userId": "63ca8383a8d8ebff7ced2a3f"
+    "likes": 21,
+    "userId": "63ca8383a8d8ebff7ced2a3f",
+    "comments": "My comment"
 }
 ###
 POST http://localhost:3001/api/users
